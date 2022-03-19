@@ -14,9 +14,12 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('index');
 });
 
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+
+Route::resource('activities', 'App\Http\Controllers\ActivityController')->middleware('auth');
+Route::resource('coaches', 'App\Http\Controllers\CoachController')->middleware('auth');
