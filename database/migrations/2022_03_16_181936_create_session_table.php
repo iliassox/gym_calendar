@@ -15,14 +15,14 @@ return new class extends Migration
     {
         Schema::create('session', function (Blueprint $table) {
             $table->id();
-            $table->date('date');
-            $table->time('time');
+            $table->string('day');
+            $table->integer('hour');
             $table->unsignedBigInteger('coach_id');
-            $table->foreign('coach_id')->references('id')->on('coach');
+            $table->foreign('coach_id')->references('id')->on('coach')->onDelete('cascade');
             $table->unsignedBigInteger('room_id');
-            $table->foreign('room_id')->references('id')->on('room');
+            $table->foreign('room_id')->references('id')->on('room')->onDelete('cascade');
             $table->unsignedBigInteger('activity_id');
-            $table->foreign('activity_id')->references('id')->on('activity');
+            $table->foreign('activity_id')->references('id')->on('activity')->onDelete('cascade');
             $table->timestamps();
         });
     }

@@ -26,7 +26,7 @@ class CoachController extends Controller
      */
     public function create()
     {
-        return view('pannel.coaches.new');
+        return view('pannel.coaches.create');
     }
 
     /**
@@ -37,16 +37,18 @@ class CoachController extends Controller
      */
     public function store(Request $request)
     {
-        Coach::create([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'phone'=>$request->phone,
-            'speciality'=>$request->speciality,
-            'experience'=>$request->experience,
-            'picture'=>$request->picture
+        $validated = $request->validate([
+            'name' => 'required|string|unique:coach',
+            'email' => 'required|email|unique:coach',
+            'phone' => 'required|digits:10',
+            'speciality' => 'string',
+            'experience' => 'string',
+            'picture' => 'string'
         ]);
 
-        return redirect()->route('pannel.coaches.index');
+        Coach::create($validated);
+
+        return redirect()->route('coaches.index');
     }
 
     /**
@@ -70,7 +72,7 @@ class CoachController extends Controller
     {
         $coach = Coach::find($id);
 
-        return view('pannel.coach.edit',compact('coach'));
+        return view('pannel.coaches.edit',compact('coach'));
     }
 
     /**
@@ -84,16 +86,18 @@ class CoachController extends Controller
     {
         $coach = Coach::find($id);
 
-        $coach->update([
-            'name'=>$request->name,
-            'email'=>$request->email,
-            'phone'=>$request->phone,
-            'speciality'=>$request->speciality,
-            'experience'=>$request->experience,
-            'picture'=>$request->picture
+        $validated = $request->validate([
+            'name' => 'required|string|unique:coach',
+            'email' => 'required|email|unique:coach',
+            'phone' => 'required|digits:10',
+            'speciality' => 'string',
+            'experience' => 'string',
+            'picture' => 'string'
         ]);
 
-        return redirect()->route('pannel.coach.index');
+        $coach->update($validated);
+
+        return redirect()->route('coaches.index');
     }
 
     /**
@@ -106,6 +110,6 @@ class CoachController extends Controller
     {
         Coach::find($id)->delete();
 
-        return redirect()->route('pannel.coach.index');
+        return redirect()->route('coaches.index');
     }
 }

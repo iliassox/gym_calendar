@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Coach extends Model
 {
+    protected $table = 'coach';
     protected $fillable=['name','email','phone','speciality','experience','picture'];
     use HasFactory;
 }

@@ -37,13 +37,15 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        Activity::create([
-            'name'=>$request->name,
-            'type'=>$request->type,
-            'picture'=>$request->picture
+        $validated = $request->validate([
+            'name' => 'required|string',
+            'type' => 'required|string',
+            'picture' => 'required|string'
         ]);
 
-        return redirect()->route('pannel.activities.index');
+        Activity::create($validated);
+
+        return redirect()->route('activities.index');
     }
 
     /**
@@ -81,13 +83,15 @@ class ActivityController extends Controller
     {
         $activity = Activity::find($id);
 
-        $activity->update([
-            'name'=>$request->name,
-            'type'=>$request->type,
-            'picture'=>$request->picture
+        $validated = $request->validate([
+            'name' => 'required|string|unique',
+            'type' => 'required|string',
+            'picture' => 'required|string'
         ]);
 
-        return redirect()->route('pannel.activities.index');
+        $activity->update($validated);
+
+        return redirect()->route('activities.index');
     }
 
     /**
@@ -100,6 +104,6 @@ class ActivityController extends Controller
     {
         Activity::find($id)->delete();
 
-        return redirect()->route('pannel.activities.index');
+        return redirect()->route('activities.index');
     }
 }

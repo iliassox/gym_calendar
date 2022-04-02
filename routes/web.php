@@ -13,13 +13,13 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
+Route::get('/', [App\Http\Controllers\HomepageController::class, 'index'])->name('homepage');
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/dashboard', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
 
 Route::resource('activities', 'App\Http\Controllers\ActivityController')->middleware('auth');
 Route::resource('coaches', 'App\Http\Controllers\CoachController')->middleware('auth');
+Route::resource('sessions', 'App\Http\Controllers\SessionController')->middleware('auth');
+Route::resource('rooms', 'App\Http\Controllers\RoomController')->middleware('auth');

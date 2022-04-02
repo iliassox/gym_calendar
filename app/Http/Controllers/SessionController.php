@@ -2,11 +2,17 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Activity;
+use App\Models\Coach;
+use App\Models\Room;
 use App\Models\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class SessionController extends Controller
 {
+
     /**
      * Display a listing of the resource.
      *
@@ -16,7 +22,7 @@ class SessionController extends Controller
     {
         $sessions = Session::all();
 
-        return view('pannel.session.index' , compact('sessions'));
+        return view('pannel.sessions.index' , compact('sessions'));
     }
 
     /**
@@ -26,7 +32,13 @@ class SessionController extends Controller
      */
     public function create()
     {
-        return view('pannel.session.create');
+        $days = Session::$days;
+        $hours = Session::$hours;
+        $activities = Activity::all();
+        $coaches = Coach::all();
+        $rooms = Room::all();
+
+        return view('pannel.sessions.create',compact('activities','coaches','rooms','days','hours'));
     }
 
     /**
@@ -37,15 +49,22 @@ class SessionController extends Controller
      */
     public function store(Request $request)
     {
+
+        $validator = Validator::make($request->all(), [
+            'hour' => ['required',Rule::in(Session::$hours)],
+            'day' => ['required',Rule::in(Session::$days)]
+
+        ])->validated();
+
         Session::create([
-            'date'=>$request->date,
-            'time'=>$request->time,
+            'day'=>$request->day,
+            'hour'=>$request->hour,
             'coach_id'=>$request->coachID,
             'room_id'=>$request->roomID,
             'activity_id'=>$request->activityID
         ]);
 
-        return redirect()->route('pannel.session.index');
+        return redirect()->route('sessions.index');
     }
 
     /**
@@ -67,9 +86,14 @@ class SessionController extends Controller
      */
     public function edit($id)
     {
+        $hours = Session::$hours;
+        $days = Session::$days;
         $session = Session::find($id);
+        $activities = Activity::all();
+        $coaches = Coach::all();
+        $rooms = Room::all();
 
-        return view('pannel.session.create', compact('session'));
+        return view('pannel.sessions.edit', compact('session','activities','coaches','rooms','days','hours'));
     }
 
     /**
@@ -83,15 +107,21 @@ class SessionController extends Controller
     {
         $session = Session::find($id);
 
+        $validator = Validator::make($request->all(), [
+            'hour' => ['required',Rule::in(Session::$hours)],
+            'day' => ['required',Rule::in(Session::$days)]
+
+        ])->validated();
+
         $session->update([
-            'date'=>$request->date,
-            'time'=>$request->time,
+            'day'=>$request->day,
+            'hour'=>$request->hour,
             'coach_id'=>$request->coachID,
             'room_id'=>$request->roomID,
             'activity_id'=>$request->activityID
         ]);
 
-        return redirect()->route('pannel.session.index');
+        return redirect()->route('sessions.index');
     }
 
     /**
@@ -104,6 +134,6 @@ class SessionController extends Controller
     {
         Session::find($id)->delete();
 
-        return redirect()->route('pannel.session.index');
+        return redirect()->route('sessions.index');
     }
 }

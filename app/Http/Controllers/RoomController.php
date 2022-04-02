@@ -16,7 +16,7 @@ class RoomController extends Controller
     {
         $rooms = Room::all();
 
-        return view('pannel.room.index',compact('rooms'));
+        return view('pannel.rooms.index',compact('rooms'));
     }
 
     /**
@@ -26,7 +26,7 @@ class RoomController extends Controller
      */
     public function create()
     {
-        return view('pannel.room.create');
+        return view('pannel.rooms.create');
     }
 
     /**
@@ -37,9 +37,14 @@ class RoomController extends Controller
      */
     public function store(Request $request)
     {
-        Room::create([
-            'capacity'=>$request->capacity
+        $validated = $request->validate([
+            'id' => 'required|integer|unique:room',
+            'capacity' => 'required|integer',
         ]);
+
+        Room::create($validated);
+
+        return redirect()->route('rooms.index');
     }
 
     /**
@@ -63,7 +68,7 @@ class RoomController extends Controller
     {
         $room = Room::find($id);
 
-        return view('pannel.coach.edit',compact('room'));
+        return view('pannel.rooms.edit',compact('room'));
     }
 
     /**
@@ -81,7 +86,7 @@ class RoomController extends Controller
             'capacity'=>$request->capacity
         ]);
 
-        return redirect()->route('pannel.room.index');
+        return redirect()->route('rooms.index');
     }
 
     /**
@@ -94,6 +99,6 @@ class RoomController extends Controller
     {
         Room::find($id)->delete();
 
-        return redirect()->route('pannel.room.index');
+        return redirect()->route('rooms.index');
     }
 }

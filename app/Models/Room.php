@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Room extends Model
 {
-    protected $fillable = ['capacity'];
+    protected $table = 'room';
+    protected $fillable = ['id','capacity'];
     use HasFactory;
 }
