@@ -38,9 +38,8 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $validated = $request->validate([
-            'name' => 'required|string',
+            'name' => 'required|string|unique:activity',
             'type' => 'required|string',
-            'picture' => 'required|string'
         ]);
 
         Activity::create($validated);
@@ -84,9 +83,8 @@ class ActivityController extends Controller
         $activity = Activity::find($id);
 
         $validated = $request->validate([
-            'name' => 'required|string|unique',
+            'name' => 'required|string|unique:activity',
             'type' => 'required|string',
-            'picture' => 'required|string'
         ]);
 
         $activity->update($validated);

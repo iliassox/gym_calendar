@@ -13,13 +13,12 @@
                         <table>
                             <thead>
                             <tr class="row100 head">
-                                <th class="cell100 column7">Coach name</th>
-                                <th class="cell100 column7">Email</th>
-                                <th class="cell100 column7">Phone</th>
-                                <th class="cell100 column7">Speciality</th>
-                                <th class="cell100 column7">Experience</th>
-                                <th class="cell100 column7">Picture</th>
-                                <th class="cell100 column7">Actions</th>
+                                <th class="cell100 column6">Coach name</th>
+                                <th class="cell100 column6">Email</th>
+                                <th class="cell100 column6">Phone</th>
+                                <th class="cell100 column6">Speciality</th>
+                                <th class="cell100 column6">Experience</th>
+                                <th class="cell100 column6">Actions</th>
                             </tr>
                             </thead>
                         </table>
@@ -32,13 +31,12 @@
                                 @foreach($coaches as $coach)
 
                                     <tr class="row100 body">
-                                        <td class="cell100 column7">{{ $coach->name }}</td>
-                                        <td class="cell100 column7">{{ $coach->email }}</td>
-                                        <td class="cell100 column7">{{ $coach->phone }}</td>
-                                        <td class="cell100 column7">{{ $coach->speciality }}</td>
-                                        <td class="cell100 column7">{{ $coach->experience }}</td>
-                                        <td class="cell100 column7">{{ $coach->picture }}</td>
-                                        <td class="cell100 column7 text-right">
+                                        <td class="cell100 column6">{{ $coach->name }}</td>
+                                        <td class="cell100 column6">{{ $coach->email }}</td>
+                                        <td class="cell100 column6">{{ $coach->phone }}</td>
+                                        <td class="cell100 column6">{{ $coach->speciality }}</td>
+                                        <td class="cell100 column6">{{ $coach->experience }}</td>
+                                        <td class="cell100 column6 text-right">
                                             <form action="{{ route('activities.destroy' , $coach->id) }}"
                                                   method="POST">
                                                 @csrf
@@ -54,14 +52,13 @@
                                 @endforeach
                             @endif
                             <tr class="row100 body">
-                                <td class="cell100 column7"><a class="btn btn-success"
+                                <td class="cell100 column6"><a class="btn btn-success"
                                                                href="{{ route('coaches.create') }}">Add new</a></td>
-                                <td class="cell100 column7"></td>
-                                <td class="cell100 column7"></td>
-                                <td class="cell100 column7"></td>
-                                <td class="cell100 column7"></td>
-                                <td class="cell100 column7"></td>
-                                <td class="cell100 column7"></td>
+                                <td class="cell100 column6"></td>
+                                <td class="cell100 column6"></td>
+                                <td class="cell100 column6"></td>
+                                <td class="cell100 column6"></td>
+                                <td class="cell100 column6"></td>
                             </tr>
                             </tbody>
                         </table>

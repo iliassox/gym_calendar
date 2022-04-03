@@ -19,10 +19,6 @@
                 <input type="text" name="type" value="{{ $activity->type }}" class="form-control"/>
 
                 <br>
-                Picture :
-                <input type="text" name="picture" value="{{ $activity->picture }}" class="form-control"/>
-
-                <br>
 
                 <input type="submit" class="btn btn-primary" value="Edit">
 

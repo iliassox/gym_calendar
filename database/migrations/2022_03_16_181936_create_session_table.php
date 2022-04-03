@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('session', function (Blueprint $table) {
             $table->id();
             $table->string('day');
-            $table->integer('hour');
+            $table->string('hour');
             $table->unsignedBigInteger('coach_id');
             $table->foreign('coach_id')->references('id')->on('coach')->onDelete('cascade');
             $table->unsignedBigInteger('room_id');

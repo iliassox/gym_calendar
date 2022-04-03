@@ -18,10 +18,6 @@
                 <input type="text" name="type" value="" class="form-control"/>
 
                 <br>
-                Picture :
-                <input type="text" name="picture" value="" class="form-control"/>
-
-                <br>
 
                 <input type="submit" class="btn btn-primary" value="Create">
 

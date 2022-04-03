@@ -51,7 +51,9 @@
                 Hour :
                 <select name="hour" class="form-control">
                     @foreach($hours as $hour)
+                        @if($hour != '12:00')
                         <option value="{{ $hour }}">{{ $hour }}</option>
+                        @endif
                     @endforeach
                 </select>
 

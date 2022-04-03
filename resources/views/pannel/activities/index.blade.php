@@ -12,10 +12,9 @@
                                 <table>
                                     <thead>
                                     <tr class="row100 head">
-                                        <th class="cell100 column4">Activity name</th>
-                                        <th class="cell100 column4">Type of activity</th>
-                                        <th class="cell100 column4">Picture</th>
-                                        <th class="cell100 column4">Actions</th>
+                                        <th class="cell100 column3">Activity name</th>
+                                        <th class="cell100 column3">Type of activity</th>
+                                        <th class="cell100 column3">Actions</th>
                                     </tr>
                                     </thead>
                                 </table>
@@ -28,10 +27,9 @@
                                     @foreach($activities as $activity)
 
                                     <tr class="row100 body">
-                                    <td class="cell100 column4">{{ $activity->name }}</td>
-                                    <td class="cell100 column4">{{ $activity->type }}</td>
-                                    <td class="cell100 column4">{{ $activity->picture }}</td>
-                                    <td class="cell100 column4 text-right">
+                                    <td class="cell100 column3">{{ $activity->name }}</td>
+                                    <td class="cell100 column3">{{ $activity->type }}</td>
+                                    <td class="cell100 column3 text-right">
                                         <form action="{{ route('activities.destroy' , $activity->id) }}" method="POST">
                                             @csrf
                                             @method('DELETE')
@@ -44,10 +42,9 @@
                                     @endforeach
                                     @endif
                                     <tr class="row100 body">
-                                        <td class="cell100 column4"><a class="btn btn-success" href="{{ route('activities.create') }}" >Add new</a></td>
-                                        <td class="cell100 column4"></td>
-                                        <td class="cell100 column4"></td>
-                                        <td class="cell100 column4"></td>
+                                        <td class="cell100 column3"><a class="btn btn-success" href="{{ route('activities.create') }}" >Add new</a></td>
+                                        <td class="cell100 column3"></td>
+                                        <td class="cell100 column3"></td>
                                     </tr>
                                     </tbody>
                                 </table>

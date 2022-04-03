@@ -30,10 +30,6 @@
                 <input type="text" name="experience" value="" class="form-control"/>
 
                 <br>
-                Picture :
-                <input type="text" name="picture" value="" class="form-control"/>
-
-                <br>
 
                 <input type="submit" class="btn btn-primary" value="Create">
 

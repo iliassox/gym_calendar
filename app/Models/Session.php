@@ -9,7 +9,7 @@ class Session extends Model
 {
     protected $table = 'session';
     public static $days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    public static $hours = [9,10,11,12,13,14,15,16,17,18];
+    public static $hours = ['9:00','11:30','12:00','14:00','15:30','17:00'];
     protected $fillable = ['day','hour','coach_id','room_id','activity_id'];
     use HasFactory;
 

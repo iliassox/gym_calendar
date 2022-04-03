@@ -3,7 +3,7 @@
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
 
-            <h1>Edit coach</h1>
+            <h1>Editing the coach : {{ $coach->name }}</h1>
 
             <br>
 
@@ -11,10 +11,6 @@
                 @method('PUT')
                 @csrf
 
-                Name :
-                <input type="text" name="name" value="{{ $coach->name }}" class="form-control"/>
-
-                <br>
                 email :
                 <input type="text" name="email" value="{{ $coach->email }}" class="form-control"/>
 
@@ -29,10 +25,6 @@
                 <br>
                 Experience :
                 <input type="text" name="experience" value="{{ $coach->experience }}" class="form-control"/>
-
-                <br>
-                Picture :
-                <input type="text" name="picture" value="{{ $coach->picture }}" class="form-control"/>
 
                 <br>
 

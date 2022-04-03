@@ -52,7 +52,9 @@
                 Hour :
                 <select name="hour" class="form-control">
                     @foreach($hours as $hour)
+                        @if($hour != '12:00')
                         <option value="{{ $hour }}" @if($session->$hour == $hour) selected @endif>{{ $hour }}</option>
+                        @endif
                     @endforeach
                 </select>
 

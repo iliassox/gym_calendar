@@ -52,9 +52,16 @@ class SessionController extends Controller
 
         $validator = Validator::make($request->all(), [
             'hour' => ['required',Rule::in(Session::$hours)],
-            'day' => ['required',Rule::in(Session::$days)]
-
+            'day' => ['required',Rule::in(Session::$days),
+                Rule::unique('session')->where(fn ($query) => $query->where('day', $request->day)->where('hour', $request->hour))
+            ]
         ])->validated();
+
+        $sessions = Session::all();
+
+        foreach ($sessions as $session){
+
+        }
 
         Session::create([
             'day'=>$request->day,
@@ -109,7 +116,9 @@ class SessionController extends Controller
 
         $validator = Validator::make($request->all(), [
             'hour' => ['required',Rule::in(Session::$hours)],
-            'day' => ['required',Rule::in(Session::$days)]
+            'day' => ['required',Rule::in(Session::$days),
+                Rule::unique('session')->where(fn ($query) => $query->where('day', $request->day)->where('hour', $request->hour))
+            ],
 
         ])->validated();
 

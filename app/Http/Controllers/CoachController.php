@@ -39,11 +39,10 @@ class CoachController extends Controller
     {
         $validated = $request->validate([
             'name' => 'required|string|unique:coach',
-            'email' => 'required|email|unique:coach',
+            'email' => 'required|email',
             'phone' => 'required|digits:10',
             'speciality' => 'string',
-            'experience' => 'string',
-            'picture' => 'string'
+            'experience' => 'string'
         ]);
 
         Coach::create($validated);
@@ -87,12 +86,10 @@ class CoachController extends Controller
         $coach = Coach::find($id);
 
         $validated = $request->validate([
-            'name' => 'required|string|unique:coach',
-            'email' => 'required|email|unique:coach',
+            'email' => 'required|email',
             'phone' => 'required|digits:10',
             'speciality' => 'string',
-            'experience' => 'string',
-            'picture' => 'string'
+            'experience' => 'string'
         ]);
 
         $coach->update($validated);
