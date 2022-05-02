@@ -53,13 +53,19 @@
                 <select name="hour" class="form-control">
                     @foreach($hours as $hour)
                         @if($hour != '12:00')
-                        <option value="{{ $hour }}" @if($session->$hour == $hour) selected @endif>{{ $hour }}</option>
+                        <option value="{{ $hour }}" @if($session->hour == $hour) selected @endif>{{ $hour }}</option>
                         @endif
                     @endforeach
                 </select>
 
+                @if($errors->any())
+                    <span class="text-danger" role="alert">
+                                        <strong>The day and hour picked are already taken or are the same as the old one</strong>
+                                    </span>
+                @endif
                 <br>
                 <input type="submit" class="btn btn-primary" value="Edit">
+                <a class="btn btn-light" href="{{ route('sessions.index') }}">Cancel</a>
 
             </form>
 

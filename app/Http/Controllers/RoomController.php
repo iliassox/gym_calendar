@@ -82,9 +82,11 @@ class RoomController extends Controller
     {
         $room = Room::find($id);
 
-        $room->update([
-            'capacity'=>$request->capacity
+        $validated = $request->validate([
+            'capacity' => 'required|integer'
         ]);
+
+        $room->update($validated);
 
         return redirect()->route('rooms.index');
     }

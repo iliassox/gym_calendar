@@ -12,11 +12,18 @@
                 @csrf
 
                 Capacity :
-                <input type="text" name="capacity" value="{{ $room->capacity }}" class="form-control"/>
+                <input type="text" name="capacity" value="@if(!($errors->any())) {{ $room->capacity }} @else {{ old('capacity') }} @endif" class="form-control @error('capacity') is-invalid @enderror"/>
+
+                @error('capacity')
+                <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                @enderror
 
                 <br>
 
                 <input type="submit" class="btn btn-primary" value="Edit">
+                <a class="btn btn-light" href="{{ route('rooms.index') }}">Cancel</a>
 
             </form>
 

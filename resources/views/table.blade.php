@@ -9,7 +9,11 @@
                 <th class="text-uppercase">Time
                 </th>
                 @foreach($hours as $hour)
-                    <th class="text-uppercase">{{ $hour }}</th>
+                    @if($hour != '17:00')
+                    <th class="text-uppercase">{{ $hour }} - {{ next($hours) }}</th>
+                    @else
+                        <th class="text-uppercase">17:00 - 18:30</th>
+                    @endif
                 @endforeach
             </tr>
             </thead>
@@ -32,7 +36,6 @@
                             </td>
                         @endif
                     @endforeach
-
                 </tr>
             @endforeach
             </tbody>
