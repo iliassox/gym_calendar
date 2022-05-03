@@ -7,8 +7,7 @@ use App\Models\Coach;
 use App\Models\Room;
 use App\Models\Session;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Validator;
-use Illuminate\Validation\Rule;
+use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
 {
@@ -32,13 +31,12 @@ class SessionController extends Controller
      */
     public function create()
     {
-        $days = Session::$days;
-        $hours = Session::$hours;
+        $dates = Session::$date;
         $activities = Activity::all();
         $coaches = Coach::all();
         $rooms = Room::all();
 
-        return view('pannel.sessions.create',compact('activities','coaches','rooms','days','hours'));
+        return view('pannel.sessions.create',compact('activities','coaches','rooms','dates'));
     }
 
     /**
@@ -50,22 +48,45 @@ class SessionController extends Controller
     public function store(Request $request)
     {
 
-        $validator = Validator::make($request->all(), [
-            'hour' => ['required',Rule::in(Session::$hours)],
-            'day' => ['required',Rule::in(Session::$days),
-                Rule::unique('session')->where(fn ($query) => $query->where('day', $request->day)->where('hour', $request->hour))
-            ]
-        ])->validated();
+        $request->validate([
+            'startHour' => 'required|integer|between:9,19',
+            'startMin' => 'required|integer|between:0,59',
+            'endHour' => 'required|integer|between:9,20',
+            'endMin' => 'required|integer|between:0,59'
+        ]);
 
-        $sessions = Session::all();
+        $startHour = intval($request->startHour);
+        $startMin = intval($request->startMin);
+        $endHour = intval($request->endHour);
+        $endMin = intval($request->endMin);
 
-        foreach ($sessions as $session){
+        if($startHour > $endHour){
+            throw ValidationException::withMessages(['field_name' => 'This value is incorrect']);
+        }
 
+        if($startHour == $endHour){
+            if($startMin > $endMin){
+                throw ValidationException::withMessages(['time' => 'Starting time cant be after ending time']);
+            }
+        }
+
+        if($startHour == '9'){
+            $startHour = '0'.$startHour;
+        }
+        if($endHour == '9'){
+            $endHour = '0'.$endHour;
+        }
+        if($startMin < 10){
+            $startMin = '0'.$startMin;
+        }
+        if($endMin < 10){
+            $endMin = '0'.$endMin;
         }
 
         Session::create([
             'day'=>$request->day,
-            'hour'=>$request->hour,
+            'hour'=>(($startHour).':'.($startMin)),
+            'end'=>(($endHour).':'.($endMin)),
             'coach_id'=>$request->coachID,
             'room_id'=>$request->roomID,
             'activity_id'=>$request->activityID
@@ -93,14 +114,13 @@ class SessionController extends Controller
      */
     public function edit($id)
     {
-        $hours = Session::$hours;
-        $days = Session::$days;
+        $dates = Session::$date;
         $session = Session::find($id);
         $activities = Activity::all();
         $coaches = Coach::all();
         $rooms = Room::all();
 
-        return view('pannel.sessions.edit', compact('session','activities','coaches','rooms','days','hours'));
+        return view('pannel.sessions.edit', compact('session','activities','coaches','rooms','dates'));
     }
 
     /**
@@ -114,17 +134,38 @@ class SessionController extends Controller
     {
         $session = Session::find($id);
 
-        $validator = Validator::make($request->all(), [
-            'hour' => ['required',Rule::in(Session::$hours)],
-            'day' => ['required',Rule::in(Session::$days),
-                Rule::unique('session')->where(fn ($query) => $query->where('day', $request->day)->where('hour', $request->hour))
-            ],
+        $request->validate([
+            'startHour' => 'required|integer|between:9,19',
+            'startMin' => 'required|integer|between:0,59',
+            'endHour' => 'required|integer|between:9,20',
+            'endMin' => 'required|integer|between:0,59'
+        ]);
 
-        ])->validated();
+        $startHour = intval($request->startHour);
+        $startMin = intval($request->startMin);
+        $endHour = intval($request->endHour);
+        $endMin = intval($request->endMin);
 
+        if($startHour > $endHour){
+            throw ValidationException::withMessages(['field_name' => 'This value is incorrect']);
+        }
+
+        if($startHour == $endHour){
+            if($startMin > $endMin){
+                throw ValidationException::withMessages(['time' => 'Starting time cant be after ending time']);
+            }
+        }
+
+        if($startHour == '9'){
+            $startHour = '0'.$startHour;
+        }
+        if($endHour == '9'){
+            $endHour = '0'.$endHour;
+        }
         $session->update([
             'day'=>$request->day,
-            'hour'=>$request->hour,
+            'hour'=>(($request->startHour).':'.($request->startMin)),
+            'end'=>(($request->endHour).':'.($request->endMin)),
             'coach_id'=>$request->coachID,
             'room_id'=>$request->roomID,
             'activity_id'=>$request->activityID

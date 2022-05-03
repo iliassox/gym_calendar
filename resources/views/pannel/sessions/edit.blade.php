@@ -43,26 +43,49 @@
                 <br>
                 Day :
                 <select name="day" class="form-control">
-                    @foreach($days as $day)
+                    @foreach($dates as $day)
                     <option value="{{ $day }}" @if($session->day == $day) selected @endif>{{ $day }}</option>
                     @endforeach
                 </select>
 
                 <br>
-                Hour :
-                <select name="hour" class="form-control">
-                    @foreach($hours as $hour)
-                        @if($hour != '12:00')
-                        <option value="{{ $hour }}" @if($session->hour == $hour) selected @endif>{{ $hour }}</option>
-                        @endif
-                    @endforeach
-                </select>
-
-                @if($errors->any())
-                    <span class="text-danger" role="alert">
-                                        <strong>The day and hour picked are already taken or are the same as the old one</strong>
+                <div class="col-md-3">
+                    Starts at :
+                    <input name="startHour" type="number" class="col-md-2 @error('time') is-invalid @enderror @error('startHour') is-invalid @enderror" value="{{ explode(":",$session->hour)[0] }}"> H <input name="startMin" type="number"
+                                                                                                                                                              class="col-md-2 @error('startMin') is-invalid @enderror" value="{{ explode(":",$session->hour)[1] }}"> mins
+                    @error('startHour')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
                                     </span>
-                @endif
+                    @enderror
+                    @error('startMin')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+                    @error('time')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+                </div>
+
+                <br>
+                <div class="col-md-3">
+                    Ends at :
+                    <input name="endHour" type="number" class="col-md-2 @error('endHour') is-invalid @enderror" value="{{ explode(":",$session->end)[0] }}"> H <input name="endMin" type="number"
+                                                                                                                                                       class="col-md-2 @error('endMin') is-invalid @enderror" value="{{ explode(":",$session->end)[1] }}"> mins
+                    @error('endHour')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+                    @error('endMin')
+                    <span class="invalid-feedback" role="alert">
+                                        <strong>{{ $message }}</strong>
+                                    </span>
+                    @enderror
+                </div>
                 <br>
                 <input type="submit" class="btn btn-primary" value="Edit">
                 <a class="btn btn-light" href="{{ route('sessions.index') }}">Cancel</a>

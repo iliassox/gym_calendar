@@ -12,11 +12,6 @@ class HomepageController extends Controller
     {
         $sessions = Session::all();
         $days = Session::$days;
-        $hours = Session::$hours;
-
-        $finalArray = Session::orderedSessions($days, $sessions);
-
-        $colors = TableManager::$colors;
-        return view('index', compact('colors', 'finalArray', 'days', 'hours'));
+        return view('index', compact( 'sessions', 'days'));
     }
 }

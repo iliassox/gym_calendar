@@ -8,21 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class Session extends Model
 {
     protected $table = 'session';
-    public static $days = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    public static $hours = ['9:00','10:30','12:00','14:00','15:30','17:00'];
-    protected $fillable = ['day','hour','coach_id','room_id','activity_id'];
+    public static $days = ['Monday' => '2022-04-11',
+        'Tuesday' => '2022-04-12',
+        'Wednesday' => '2022-04-13',
+        'Thursday' => '2022-04-14',
+        'Friday' => '2022-04-15',
+        'Saturday' => '2022-04-16'];
+    public static $date = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+    protected $fillable = ['day','hour','coach_id','room_id','activity_id','end'];
     use HasFactory;
-
-    public static function orderedSessions($days,$sessions){
-        foreach ($days as $day){
-            $tempDay =[];
-            foreach ($sessions as $session){
-                if ($session->day == $day){
-                    $tempDay[$session->hour] = ['hour'=>$session->hour,'coach'=>Coach::find($session->coach_id)->name,'activity'=>Activity::find($session->activity_id)->name,'room'=>$session->room_id,'number'=>$session->activity_id];
-                }
-            }
-            $finalArray[$day] = $tempDay;
-        }
-        return $finalArray;
-    }
 }

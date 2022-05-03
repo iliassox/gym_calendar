@@ -7619,6 +7619,20 @@ textarea.form-control-lg {
   font-size: 0.9rem !important;
 }
 
+.same{
+    display: inline-block;
+}
+
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
 .fst-italic {
   font-style: italic !important;
 }
@@ -7699,9 +7713,9 @@ textarea.form-control-lg {
   text-transform: capitalize !important;
 }
 
-.text-wrap {
+/*.text-wrap {
   white-space: normal !important;
-}
+}*/
 
 .text-nowrap {
   white-space: nowrap !important;

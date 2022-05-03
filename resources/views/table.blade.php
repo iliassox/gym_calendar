@@ -1,44 +1,48 @@
-<div class="container">
-    <div class="timetable-img text-center">
-        <img src="img/content/timetable.png" alt="">
-    </div>
-    <div class="table-responsive">
-        <table class="table table-bordered text-center">
-            <thead>
-            <tr class="bg-light-gray">
-                <th class="text-uppercase">Time
-                </th>
-                @foreach($hours as $hour)
-                    @if($hour != '17:00')
-                    <th class="text-uppercase">{{ $hour }} - {{ next($hours) }}</th>
-                    @else
-                        <th class="text-uppercase">17:00 - 18:30</th>
-                    @endif
-                @endforeach
-            </tr>
-            </thead>
-            <tbody>
-            @foreach($days as $day)
-                <tr>
-                    <td class="align-middle ">{{ $day }}</td>
-                    @foreach($hours as $hour)
-                        @if(isset($finalArray[$day][$hour]))
-                            <td class="sizing">
-                                <span
-                                    class="{{ $colors[($finalArray[$day][$hour]['number']) % 6] }} padding-5px-tb padding-15px-lr border-radius-5 margin-10px-bottom text-white font-size16 xs-font-size13">{{ $finalArray[$day][$hour]['activity'] }}</span>
-                                <div class="margin-10px-top font-size14">{{ $finalArray[$day][$hour]['coach'] }}</div>
-                                <div class="font-size13 text-light-gray">starts at {{ $finalArray[$day][$hour]['hour'] }}</div>
-                            </td>
-                        @endif
-                        @if(empty($finalArray[$day][$hour]))
-                            <td class="sizing">
+<head>
+    <meta charset='utf-8' />
+    <link href='{{ asset('js/lib/main.css') }}' rel='stylesheet' />
+    <script src='{{ asset('js/lib/main.js') }}'></script>
+    <script>
 
-                            </td>
-                        @endif
+        document.addEventListener('DOMContentLoaded', function() {
+            var calendarEl = document.getElementById('calendar');
+            var calendar = new FullCalendar.Calendar(calendarEl, {
+                initialView: 'timeGridWeek',
+                dayHeaders: 'true',
+                firstDay: 1,
+                slotMinTime: '09:00:00',
+                slotMaxTime: '20:00:00',
+                allDaySlot: false,
+                height: 'auto',
+                aspectRatio: 1,
+                navLinks: false,
+                hiddenDays: [ 0 ],
+                validRange: {
+                    start: '2022-04-11',
+                    end: '2022-04-18'
+                },
+                dayHeaderClassNames: 'table-heads',
+                dayHeaderFormat: { weekday: 'long' },
+                events: [
+                    @foreach($sessions as $session)
+                    {
+                        title: '   "{{ \App\Models\Activity::find($session->activity_id)->name }}" at room : {{ \App\Models\Room::find($session->room_id)->id }} \n  By : {{ \App\Models\Coach::find($session->coach_id)->name }} ',
+                        start: '{{ $days[$session->day] }}T{{ $session->hour }}',
+                        end: '{{ $days[$session->day] }}T{{ $session->end }}',
+                        classNames:['titles'],
+                        backgroundColor: '{{ \App\Models\Colors::$colors[($session->activity_id) % 10] }}'
+                    },
                     @endforeach
-                </tr>
-            @endforeach
-            </tbody>
-        </table>
-    </div>
-</div>
+                ]
+            });
+
+
+
+            calendar.render();
+        });
+
+    </script>
+</head>
+<body>
+<div id='calendar'></div>
+</body>

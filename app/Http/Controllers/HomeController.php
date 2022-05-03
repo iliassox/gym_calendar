@@ -29,11 +29,6 @@ class HomeController extends Controller
     {
         $sessions = Session::all();
         $days = Session::$days;
-        $hours = Session::$hours;
-
-        $finalArray = Session::orderedSessions($days,$sessions);
-
-        $colors = TableManager::$colors;
-        return view('dashboard',compact('colors','finalArray','days','hours'));
+        return view('dashboard',compact('sessions','days'));
     }
 }

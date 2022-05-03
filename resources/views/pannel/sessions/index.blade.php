@@ -12,12 +12,13 @@
                         <table>
                             <thead>
                             <tr class="row100 head">
-                                <th class="cell100 column6">Activity name</th>
-                                <th class="cell100 column6">Coach name</th>
-                                <th class="cell100 column6">Room number</th>
-                                <th class="cell100 column6">Day</th>
-                                <th class="cell100 column6">Hour</th>
-                                <th class="cell100 column6">Actions</th>
+                                <th class="cell100 column7">Activity name</th>
+                                <th class="cell100 column7">Coach name</th>
+                                <th class="cell100 column7">Room number</th>
+                                <th class="cell100 column7">Day</th>
+                                <th class="cell100 column7">Start</th>
+                                <th class="cell100 column7">End</th>
+                                <th class="cell100 column7">Actions</th>
                             </tr>
                             </thead>
                         </table>
@@ -30,12 +31,13 @@
                                 @foreach($sessions as $session)
 
                                     <tr class="row100 body">
-                                        <td class="cell100 column6">{{ \App\Models\Activity::find($session->activity_id)->name }}</td>
-                                        <td class="cell100 column6">{{ \App\Models\Coach::find($session->coach_id)->name }}</td>
-                                        <td class="cell100 column6">{{ $session->room_id }}</td>
-                                        <td class="cell100 column6">{{ $session->day }}</td>
-                                        <td class="cell100 column6">{{ $session->hour }}</td>
-                                        <td class="cell100 column6 text-right">
+                                        <td class="cell100 column7">{{ \App\Models\Activity::find($session->activity_id)->name }}</td>
+                                        <td class="cell100 column7">{{ \App\Models\Coach::find($session->coach_id)->name }}</td>
+                                        <td class="cell100 column7">{{ $session->room_id }}</td>
+                                        <td class="cell100 column7">{{ $session->day }}</td>
+                                        <td class="cell100 column7">{{ $session->hour }}</td>
+                                        <td class="cell100 column7">{{ $session->end }}</td>
+                                        <td class="cell100 column7 text-right">
                                             <form action="{{ route('sessions.destroy' , $session->id) }}"
                                                   method="POST">
                                                 @csrf
@@ -51,13 +53,14 @@
                                 @endforeach
                             @endif
                             <tr class="row100 body">
-                                <td class="cell100 column6"><a class="btn btn-success"
+                                <td class="cell100 column7"><a class="btn btn-success"
                                                                href="{{ route('sessions.create') }}">Add new</a></td>
-                                <td class="cell100 column6"></td>
-                                <td class="cell100 column6"></td>
-                                <td class="cell100 column6"></td>
-                                <td class="cell100 column6"></td>
-                                <td class="cell100 column6"></td>
+                                <td class="cell100 column7"></td>
+                                <td class="cell100 column7"></td>
+                                <td class="cell100 column7"></td>
+                                <td class="cell100 column7"></td>
+                                <td class="cell100 column7"></td>
+                                <td class="cell100 column7"></td>
                             </tr>
                             </tbody>
                         </table>
