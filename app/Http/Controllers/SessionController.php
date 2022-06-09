@@ -162,10 +162,18 @@ class SessionController extends Controller
         if($endHour == '9'){
             $endHour = '0'.$endHour;
         }
+        if($startMin < 10){
+            $startMin = '0'.$startMin;
+        }
+        if($endMin < 10){
+            $endMin = '0'.$endMin;
+        }
+
+
         $session->update([
             'day'=>$request->day,
-            'hour'=>(($request->startHour).':'.($request->startMin)),
-            'end'=>(($request->endHour).':'.($request->endMin)),
+            'hour'=>(($startHour).':'.($startMin)),
+            'end'=>(($endHour).':'.($endMin)),
             'coach_id'=>$request->coachID,
             'room_id'=>$request->roomID,
             'activity_id'=>$request->activityID

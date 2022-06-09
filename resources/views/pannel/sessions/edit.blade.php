@@ -51,8 +51,8 @@
                 <br>
                 <div class="col-md-3">
                     Starts at :
-                    <input name="startHour" type="number" class="col-md-2 @error('time') is-invalid @enderror @error('startHour') is-invalid @enderror" value="{{ explode(":",$session->hour)[0] }}"> H <input name="startMin" type="number"
-                                                                                                                                                              class="col-md-2 @error('startMin') is-invalid @enderror" value="{{ explode(":",$session->hour)[1] }}"> mins
+                    <input name="startHour" type="number" class="col-md-2 @error('time') is-invalid @enderror @error('startHour') is-invalid @enderror" value="{{ intval(explode(":",$session->hour)[0]) }}"> H <input name="startMin" type="number"
+                                                                                                                                                              class="col-md-2 @error('startMin') is-invalid @enderror" value="{{ intval(explode(":",$session->hour)[1]) }}"> mins
                     @error('startHour')
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -73,8 +73,8 @@
                 <br>
                 <div class="col-md-3">
                     Ends at :
-                    <input name="endHour" type="number" class="col-md-2 @error('endHour') is-invalid @enderror" value="{{ explode(":",$session->end)[0] }}"> H <input name="endMin" type="number"
-                                                                                                                                                       class="col-md-2 @error('endMin') is-invalid @enderror" value="{{ explode(":",$session->end)[1] }}"> mins
+                    <input name="endHour" type="number" class="col-md-2 @error('endHour') is-invalid @enderror" value="{{ intval(explode(":",$session->end)[0]) }}"> H <input name="endMin" type="number"
+                                                                                                                                                       class="col-md-2 @error('endMin') is-invalid @enderror" value="{{ intval(explode(":",$session->end)[1]) }}"> mins
                     @error('endHour')
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
