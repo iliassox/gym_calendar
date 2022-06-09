@@ -7,6 +7,7 @@ use App\Models\Coach;
 use App\Models\Room;
 use App\Models\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\ValidationException;
 
 class SessionController extends Controller
@@ -61,7 +62,7 @@ class SessionController extends Controller
         $endMin = intval($request->endMin);
 
         if($startHour > $endHour){
-            throw ValidationException::withMessages(['field_name' => 'This value is incorrect']);
+            throw ValidationException::withMessages(['time' => 'Starting time cant be after ending time']);
         }
 
         if($startHour == $endHour){
@@ -83,10 +84,18 @@ class SessionController extends Controller
             $endMin = '0'.$endMin;
         }
 
+        $hour = (($startHour).':'.($startMin));
+
+        $end = (($endHour).':'.($endMin));
+
+        $sessions = DB::table('session')->where('day',$request->day)->get();
+
+        $this->extracted($sessions, $hour, $end);
+
         Session::create([
             'day'=>$request->day,
-            'hour'=>(($startHour).':'.($startMin)),
-            'end'=>(($endHour).':'.($endMin)),
+            'hour'=>$hour,
+            'end'=>$end,
             'coach_id'=>$request->coachID,
             'room_id'=>$request->roomID,
             'activity_id'=>$request->activityID
@@ -147,7 +156,7 @@ class SessionController extends Controller
         $endMin = intval($request->endMin);
 
         if($startHour > $endHour){
-            throw ValidationException::withMessages(['field_name' => 'This value is incorrect']);
+            throw ValidationException::withMessages(['time' => 'Starting time cant be after ending time']);
         }
 
         if($startHour == $endHour){
@@ -169,11 +178,19 @@ class SessionController extends Controller
             $endMin = '0'.$endMin;
         }
 
+        $hour = (($startHour).':'.($startMin));
+
+        $end = (($endHour).':'.($endMin));
+
+        $sessions = DB::table('session')->where('day',$request->day)->where('id','<>',$id)->get();
+
+        $this->extracted($sessions, $hour, $end);
+
 
         $session->update([
             'day'=>$request->day,
-            'hour'=>(($startHour).':'.($startMin)),
-            'end'=>(($endHour).':'.($endMin)),
+            'hour'=>$hour,
+            'end'=>$end,
             'coach_id'=>$request->coachID,
             'room_id'=>$request->roomID,
             'activity_id'=>$request->activityID
@@ -193,5 +210,32 @@ class SessionController extends Controller
         Session::find($id)->delete();
 
         return redirect()->route('sessions.index');
+    }
+
+    /**
+     * @param \Illuminate\Support\Collection $sessions
+     * @param string $hour
+     * @param string $end
+     * @return void
+     * @throws ValidationException
+     */
+    public function extracted(\Illuminate\Support\Collection $sessions, string $hour, string $end): void
+    {
+        foreach ($sessions as $tempSession) {
+            $start = strtotime($hour);
+            $sessionStart = strtotime($tempSession->hour);
+            $ending = strtotime($end);
+            $sessionEnding = strtotime($tempSession->end);
+            if ($start >= $sessionStart and $start <= $sessionEnding) {
+                throw ValidationException::withMessages(['time' => 'A session already exists at this time']);
+            } else {
+                if ($ending > $sessionStart and $ending < $sessionEnding) {
+                    throw ValidationException::withMessages(['time' => 'This session is extended to another session']);
+                }
+            }
+            if ($sessionStart >= $start and $sessionStart <= $ending and $sessionEnding > $start and $sessionEnding < $ending) {
+                throw ValidationException::withMessages(['time' => 'A session already exists at this time']);
+            }
+        }
     }
 }
