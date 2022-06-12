@@ -37,7 +37,7 @@
                     @if($rooms)
                         @foreach($rooms as $room)
                             <option value="{{ $room->id }}"
-                                    @if($room->id == old('roomID')) selected @endif>{{ $room->id }}</option>
+                                    @if($room->id == old('roomID')) selected @endif>{{ $room->name }}</option>
                         @endforeach
                     @endif
                 </select>

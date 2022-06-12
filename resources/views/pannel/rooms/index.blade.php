@@ -12,8 +12,8 @@
                         <table>
                             <thead>
                             <tr class="row100 head">
-                                <th class="cell100 column4">Room number</th>
                                 <th class="cell100 column4">Room name</th>
+                                <th class="cell100 column4">Room capacity</th>
                                 <th class="cell100 column4">Actions</th>
                             </tr>
                             </thead>
@@ -27,7 +27,7 @@
                                 @foreach($rooms as $room)
 
                                     <tr class="row100 body">
-                                        <td class="cell100 column4">{{ $room->id }}</td>
+                                        <td class="cell100 column4">{{ $room->name }}</td>
                                         <td class="cell100 column4">{{ $room->capacity }}</td>
                                         <td class="cell100 column4 text-right">
                                             <form action="{{ route('rooms.destroy' , $room->id) }}"

@@ -11,9 +11,9 @@
                 @csrf
 
                 Number :
-                <input type="text" name="id" value="{{ old('id') }}" class="form-control @error('id') is-invalid @enderror"/>
+                <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror"/>
 
-                @error('id')
+                @error('name')
                 <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
                                     </span>

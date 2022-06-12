@@ -8,6 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 class Room extends Model
 {
     protected $table = 'room';
-    protected $fillable = ['id','capacity'];
+    protected $fillable = ['name','capacity'];
     use HasFactory;
 }

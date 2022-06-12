@@ -35,7 +35,7 @@
                 <select name="roomID" class="form-select">
                     @if($rooms)
                         @foreach($rooms as $room)
-                            <option value="{{ $room->id }}" @if($room->id == $session->room_id) selected @endif>{{ $room->id }}</option>
+                            <option value="{{ $room->id }}" @if($room->id == $session->room_id) selected @endif>{{ $room->name }}</option>
                         @endforeach
                     @endif
                 </select>

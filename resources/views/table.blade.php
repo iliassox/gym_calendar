@@ -26,7 +26,7 @@
                 events: [
                     @foreach($sessions as $session)
                     {
-                        title: '   \t{{ \App\Models\Activity::find($session->activity_id)->name }} \n at room : {{ \App\Models\Room::find($session->room_id)->id }}   By : {{ \App\Models\Coach::find($session->coach_id)->name }} ',
+                        title: '   \t\t{{ \App\Models\Activity::find($session->activity_id)->name }} \n Room : \t{{ \App\Models\Room::find($session->room_id)->name }}  \n Coach : \t{{ \App\Models\Coach::find($session->coach_id)->name }} ',
                         start: '{{ $days[$session->day] }}T{{ $session->hour }}',
                         end: '{{ $days[$session->day] }}T{{ $session->end }}',
                         classNames:['titles'],

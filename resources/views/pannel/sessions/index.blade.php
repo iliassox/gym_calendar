@@ -14,7 +14,7 @@
                             <tr class="row100 head">
                                 <th class="cell100 column7">Activity name</th>
                                 <th class="cell100 column7">Coach name</th>
-                                <th class="cell100 column7">Room number</th>
+                                <th class="cell100 column7">Room name</th>
                                 <th class="cell100 column7">Day</th>
                                 <th class="cell100 column7">Start</th>
                                 <th class="cell100 column7">End</th>
@@ -33,7 +33,7 @@
                                     <tr class="row100 body">
                                         <td class="cell100 column7">{{ \App\Models\Activity::find($session->activity_id)->name }}</td>
                                         <td class="cell100 column7">{{ \App\Models\Coach::find($session->coach_id)->name }}</td>
-                                        <td class="cell100 column7">{{ $session->room_id }}</td>
+                                        <td class="cell100 column7">{{ \App\Models\Room::find($session->room_id)->name }}</td>
                                         <td class="cell100 column7">{{ $session->day }}</td>
                                         <td class="cell100 column7">{{ $session->hour }}</td>
                                         <td class="cell100 column7">{{ $session->end }}</td>
