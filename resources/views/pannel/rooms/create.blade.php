@@ -10,7 +10,7 @@
             <form action="{{ route('rooms.store') }}" method="post">
                 @csrf
 
-                Number :
+                Name :
                 <input type="text" name="name" value="{{ old('name') }}" class="form-control @error('name') is-invalid @enderror"/>
 
                 @error('name')

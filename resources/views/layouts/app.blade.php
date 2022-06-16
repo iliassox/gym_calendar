@@ -30,7 +30,8 @@
     <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         @guest
             @if (Route::has('login'))
-                <a class="nav-link" href="{{ route('login') }}">Login</a>
+                <a class="nav-link" href="{{ route('login') }}">Admin</a>
+                <a class="nav-link" href="/coach">Coach</a>
             @endif
         @else
             <a class="nav-link" href="{{ route('home') }}">Dashboard</a>

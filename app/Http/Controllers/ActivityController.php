@@ -83,7 +83,7 @@ class ActivityController extends Controller
         $activity = Activity::find($id);
 
         $validated = $request->validate([
-            'name' => 'required|string|unique:activity',
+            'name' => 'required|string',
             'type' => 'required|string',
         ]);
 

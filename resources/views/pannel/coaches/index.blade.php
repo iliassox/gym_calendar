@@ -37,7 +37,7 @@
                                         <td class="cell100 column6">{{ $coach->speciality }}</td>
                                         <td class="cell100 column6">{{ $coach->experience }}</td>
                                         <td class="cell100 column6 text-right">
-                                            <form action="{{ route('activities.destroy' , $coach->id) }}"
+                                            <form action="{{ route('coaches.destroy' , $coach->id) }}"
                                                   method="POST">
                                                 @csrf
                                                 @method('DELETE')

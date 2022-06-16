@@ -226,7 +226,7 @@ class SessionController extends Controller
             $sessionStart = strtotime($tempSession->hour);
             $ending = strtotime($end);
             $sessionEnding = strtotime($tempSession->end);
-            if ($start >= $sessionStart and $start <= $sessionEnding) {
+            if ($start >= $sessionStart and $start < $sessionEnding) {
                 throw ValidationException::withMessages(['time' => 'A session already exists at this time']);
             } else {
                 if ($ending > $sessionStart and $ending < $sessionEnding) {
