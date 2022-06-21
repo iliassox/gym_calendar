@@ -16,10 +16,10 @@ return new class extends Migration
         Schema::create('coach', function (Blueprint $table) {
             $table->id();
             $table->string('name')->unique();
-            $table->string('email');
-            $table->string('phone')->unique();
+            $table->string('email')->unique();
+            $table->string('code');
+            $table->string('phone');
             $table->string('speciality');
-            $table->string('experience');
             $table->timestamps();
         });
     }

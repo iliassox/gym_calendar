@@ -11,7 +11,7 @@
     <!--start-content------>
     <div class="content">
         <img src="{{ asset('pictures/error-img.png') }}" title="error" />
-        <p><span><label>O</label>hh.....</span>You Requested the page that is no longer There.</p>
+        <p><span><label>O</label>hh.....</span>You Requested the page that is not available.</p>
         <a href="/">Back To Home</a>
     </div>
     <!--End-Cotent------>

@@ -20,7 +20,7 @@ class SessionController extends Controller
      */
     public function index()
     {
-        $sessions = Session::all();
+        $sessions = DB::table('session')->where('pending','=',false)->get();
 
         return view('pannel.sessions.index' , compact('sessions'));
     }
@@ -50,6 +50,9 @@ class SessionController extends Controller
     {
 
         $request->validate([
+            'activityID' => 'required',
+            'coachID' => 'required',
+            'roomID' => 'required',
             'startHour' => 'required|integer|between:9,19',
             'startMin' => 'required|integer|between:0,59',
             'endHour' => 'required|integer|between:9,20',
@@ -88,7 +91,7 @@ class SessionController extends Controller
 
         $end = (($endHour).':'.($endMin));
 
-        $sessions = DB::table('session')->where('day',$request->day)->get();
+        $sessions = DB::table('session')->where('day',$request->day)->where('pending','=',0)->get();
 
         $this->extracted($sessions, $hour, $end);
 
@@ -96,6 +99,7 @@ class SessionController extends Controller
             'day'=>$request->day,
             'hour'=>$hour,
             'end'=>$end,
+            'pending'=>'0',
             'coach_id'=>$request->coachID,
             'room_id'=>$request->roomID,
             'activity_id'=>$request->activityID
@@ -144,6 +148,9 @@ class SessionController extends Controller
         $session = Session::find($id);
 
         $request->validate([
+            'activityID' => 'required',
+            'coachID' => 'required',
+            'roomID' => 'required',
             'startHour' => 'required|integer|between:9,19',
             'startMin' => 'required|integer|between:0,59',
             'endHour' => 'required|integer|between:9,20',
@@ -182,7 +189,7 @@ class SessionController extends Controller
 
         $end = (($endHour).':'.($endMin));
 
-        $sessions = DB::table('session')->where('day',$request->day)->where('id','<>',$id)->get();
+        $sessions = DB::table('session')->where('day',$request->day)->where('id','<>',$id)->where('pending','=','0')->get();
 
         $this->extracted($sessions, $hour, $end);
 
@@ -219,7 +226,7 @@ class SessionController extends Controller
      * @return void
      * @throws ValidationException
      */
-    public function extracted(\Illuminate\Support\Collection $sessions, string $hour, string $end): void
+    public static function extracted(\Illuminate\Support\Collection $sessions, string $hour, string $end): void
     {
         foreach ($sessions as $tempSession) {
             $start = strtotime($hour);

@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no"/>
     <meta name="description" content=""/>
     <meta name="author" content=""/>
-    <title>el titlé</title>
+    <title>clubs</title>
     <link href="{{ asset('css/app.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/myCSS.css') }}" rel="stylesheet"/>
     <link href="{{ asset('css/styles1.css') }}" rel="stylesheet"/>
@@ -17,24 +17,43 @@
 <body class="sb-nav">
 <nav class="sb-topnav navbar navbar-expand navbar-dark bg-dark ">
     <div class="pe-5 ps-5"></div>
-    <!-- Navbar Brand-->
-    <a class="navbar-brand ps-5" href="/"><img src="{{ asset('pictures/logo.png') }}"></a>
-    <!-- Sidebar Toggle-->
+    <div class="pe-5 ps-5"></div>
 
-    <!-- Navbar Search-->
-    <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
-        <div class="input-group">
-        </div>
-    </form>
-    <!-- Navbar-->
-    <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
         @guest
             @if (Route::has('login'))
-                <a class="nav-link" href="{{ route('login') }}">Admin</a>
-                <a class="nav-link" href="/coach">Coach</a>
+            <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
+                <li class="nav-item dropdown">
+                    <a id="navbarDropdown" class="nav-link" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
+                        <i class="fas fa-bars fa-2x"></i>
+
+                    </a>
+
+                    <div class="dropdown-menu dropdown-menu" aria-labelledby="navbarDropdown">
+                        <a class="dropdown-item" href="{{ route('login') }}">Admin login</a>
+                        <a class="dropdown-item" href="/coach">Coach login</a>
+                    </div>
+                </li>
+            </ul>
+
+                <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                    <div class="input-group">
+                    </div>
+                </form>
+                <!-- Navbar-->
+                <a class="navbar-brand ps-5" href="/"><img src="{{ asset('pictures/logo.png') }}"></a>
+
             @endif
         @else
+
+            <a class="navbar-brand ps-5" href="/"><img src="{{ asset('pictures/logo.png') }}"></a>
+
+            <form class="d-none d-md-inline-block form-inline ms-auto me-0 me-md-3 my-2 my-md-0">
+                <div class="input-group">
+                </div>
+            </form>
+        <ul class="navbar-nav ms-auto ms-md-0 me-3 me-lg-4">
             <a class="nav-link" href="{{ route('home') }}">Dashboard</a>
+
             <li class="nav-item dropdown">
                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                     {{ Auth::user()->name }}
@@ -52,9 +71,17 @@
                     </form>
                 </div>
             </li>
+    </ul>
         @endguest
 
-    </ul>
+
+    <!-- Navbar Brand-->
+
+    <!-- Sidebar Toggle-->
+
+    <!-- Navbar Search-->
+
+    <div class="pe-5 ps-5"></div>
     <div class="pe-5 ps-5"></div>
     <div class="pe-5 ps-5"></div>
 </nav>

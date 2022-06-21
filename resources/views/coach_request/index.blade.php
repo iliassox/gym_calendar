@@ -1,23 +1,26 @@
-@extends('layouts.side_nav')
+@extends('layouts.app')
 
-@section('side_nav_content' )
+@section('content')
 
-
+    <link rel="stylesheet" type="text/css" href="{{ asset('css/main.css') }}">
 
     <div class="limiter">
         <div class="container-table100">
             <div class="wrap-table100">
-                <h1 class="display-5" align="center">All coaches</h1>
+                <br>
+                <h3 >Requested sessions for :</h3>
+                <br>
+                <h1 align="center">{{ $coach->name }} <div class="float-end pe-5"> <a class="lead" href="{{ route('SessionStop') }}">logout</a></div></h1>
                 <div class="table100 ver1 m-b-110">
                     <div class="table100-head">
                         <table>
                             <thead>
                             <tr class="row100 head">
-                                <th class="cell100 column6">Coach name</th>
-                                <th class="cell100 column6">Email</th>
-                                <th class="cell100 column6">code</th>
-                                <th class="cell100 column6">Phone</th>
-                                <th class="cell100 column6">Speciality</th>
+                                <th class="cell100 column6">Activity name</th>
+                                <th class="cell100 column6">Room name</th>
+                                <th class="cell100 column6">Day</th>
+                                <th class="cell100 column6">Start</th>
+                                <th class="cell100 column6">End</th>
                                 <th class="cell100 column6">Actions</th>
                             </tr>
                             </thead>
@@ -27,22 +30,20 @@
                     <div class="table100-body js-pscroll">
                         <table>
                             <tbody>
-                            @if($coaches)
-                                @foreach($coaches as $coach)
+                            @if($sessions)
+                                @foreach($sessions as $session)
 
                                     <tr class="row100 body">
-                                        <td class="cell100 column6">{{ $coach->name }}</td>
-                                        <td class="cell100 column6" style="font-size: 14px;">{{ $coach->email }}</td>
-                                        <td class="cell100 column6"><span id="{{ $coach->code }}">****</span> <a class="text-secondary" href="#" onclick="reveal({{ $coach->code }})"><i class="fas fa-eye"></i></a></td>
-                                        <td class="cell100 column6">{{ $coach->phone }}</td>
-                                        <td class="cell100 column6">{{ $coach->speciality }}</td>
+                                        <td class="cell100 column6">{{ \App\Models\Activity::find($session->activity_id)->name }}</td>
+                                        <td class="cell100 column6">{{ \App\Models\Room::find($session->room_id)->name }}</td>
+                                        <td class="cell100 column6">{{ $session->day }}</td>
+                                        <td class="cell100 column6">{{ $session->hour }}</td>
+                                        <td class="cell100 column6">{{ $session->end }}</td>
                                         <td class="cell100 column6 text-right">
-                                            <form action="{{ route('coaches.destroy' , $coach->id) }}"
+                                            <form action="{{ route('SessionDestroy' ,['sessionId' => $session->id]) }}"
                                                   method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a class="btn btn-info" data-inline="true"
-                                                   href="{{ route('coaches.edit', $coach->id) }}">edit</a>
                                                 <input type="submit" data-inline="true" value="delete"
                                                        class="btn btn-danger">
                                             </form>
@@ -53,7 +54,7 @@
                             @endif
                             <tr class="row100 body">
                                 <td class="cell100 column6"><a class="btn btn-success"
-                                                               href="{{ route('coaches.create') }}">Add new</a></td>
+                                                               href="{{ route('Form') }}">New Request</a></td>
                                 <td class="cell100 column6"></td>
                                 <td class="cell100 column6"></td>
                                 <td class="cell100 column6"></td>
@@ -67,9 +68,6 @@
             </div>
         </div>
     </div>
-<script>
-    function reveal(id){
-        document.getElementById(id).innerHTML = id;
-    }
-</script>
+
+
 @endsection

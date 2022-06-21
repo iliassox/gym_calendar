@@ -46,15 +46,6 @@
                                     </span>
                 @enderror
                 <br>
-                Experience :
-                <input type="text" name="experience" value="{{ old('experience') }}" class="form-control @error('experience') is-invalid @enderror"/>
-
-                @error('experience')
-                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                @enderror
-                <br>
 
                 <input type="submit" class="btn btn-primary" value="Create">
                 <a class="btn btn-light" href="{{ route('coaches.index') }}">Cancel</a>

@@ -15,6 +15,6 @@ class Session extends Model
         'Friday' => '2022-04-15',
         'Saturday' => '2022-04-16'];
     public static $date = ['Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
-    protected $fillable = ['day','hour','coach_id','room_id','activity_id','end'];
+    protected $fillable = ['day','hour','pending','coach_id','room_id','activity_id','end'];
     use HasFactory;
 }

@@ -27,6 +27,10 @@
                                 <div class="sb-nav-link-icon"><i class="bi bi-door-open-fill"></i></div>
                                 Rooms
                             </a>
+                            <a class="nav-link" href="{{ route('pendingIndex') }}">
+                                <div class="sb-nav-link-icon"><i class="bi bi-hourglass-split"></i></div>
+                                Pending sessions
+                            </a>
                         </div>
                     </div>
                 </nav>

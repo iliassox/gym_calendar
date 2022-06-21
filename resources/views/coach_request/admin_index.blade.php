@@ -6,7 +6,16 @@
     <div class="limiter">
         <div class="container-table100">
             <div class="wrap-table100">
-                <h1 class="display-5" align="center">All sessions</h1>
+                @if ($errors->any())
+                    <div class="alert alert-danger">
+                        <ul>
+                            @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                            @endforeach
+                        </ul>
+                    </div>
+                @endif
+                <h1 class="display-5" align="center">Requested sessions</h1>
                 <div class="table100 ver1 m-b-110">
                     <div class="table100-head">
                         <table>
@@ -38,30 +47,22 @@
                                         <td class="cell100 column7">{{ $session->hour }}</td>
                                         <td class="cell100 column7">{{ $session->end }}</td>
                                         <td class="cell100 column7 text-right">
-                                            <form action="{{ route('sessions.destroy' , $session->id) }}"
+                                            <form action="{{ route('pendingAccept',$session->id) }}" method="POST" style="display: inline-block;">
+                                                @csrf
+                                                <input type="submit" class="btn btn-info" data-inline="true"
+                                                    value="Accept"/>
+                                            </form>
+                                            <form action="{{ route('pendingDelete' , $session->id) }}" style="display: inline-block;"
                                                   method="POST">
                                                 @csrf
                                                 @method('DELETE')
-                                                <a class="btn btn-info" data-inline="true"
-                                                   href="{{ route('sessions.edit', $session->id) }}">edit</a>
                                                 <input type="submit" data-inline="true" value="delete"
                                                        class="btn btn-danger">
                                             </form>
                                         </td>
                                     </tr>
-
                                 @endforeach
                             @endif
-                            <tr class="row100 body">
-                                <td class="cell100 column7"><a class="btn btn-success"
-                                                               href="{{ route('sessions.create') }}">Add new</a></td>
-                                <td class="cell100 column7"></td>
-                                <td class="cell100 column7"></td>
-                                <td class="cell100 column7"></td>
-                                <td class="cell100 column7"></td>
-                                <td class="cell100 column7"></td>
-                                <td class="cell100 column7"></td>
-                            </tr>
                             </tbody>
                         </table>
                     </div>

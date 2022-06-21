@@ -38,15 +38,6 @@
                                     </span>
                 @enderror
                 <br>
-                Experience :
-                <input type="text" name="experience" value="@if(!($errors->any())) {{ $coach->experience }} @else {{ old('experience') }} @endif" class="form-control @error('experience') is-invalid @enderror"/>
-
-                @error('experience')
-                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                @enderror
-                <br>
 
                 <input type="submit" class="btn btn-primary" value="Edit">
 

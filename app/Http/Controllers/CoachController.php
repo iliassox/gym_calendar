@@ -41,11 +41,16 @@ class CoachController extends Controller
             'name' => 'required|string|unique:coach',
             'email' => 'required|email',
             'phone' => 'required|digits:10',
-            'speciality' => 'string',
-            'experience' => 'string'
+            'speciality' => 'string'
         ]);
 
-        Coach::create($validated);
+        Coach::create([
+            'name' => $request->name,
+            'email' => $request->email,
+            'code' => rand(1000,9999),
+            'phone' => $request->phone,
+            'speciality' => $request->speciality
+        ]);
 
         return redirect()->route('coaches.index');
     }
@@ -88,8 +93,7 @@ class CoachController extends Controller
         $validated = $request->validate([
             'email' => 'required|email',
             'phone' => 'required|digits:10',
-            'speciality' => 'string',
-            'experience' => 'string'
+            'speciality' => 'string'
         ]);
 
         $coach->update($validated);

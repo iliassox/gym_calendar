@@ -2,16 +2,15 @@
 @section('content')
     <section class="py-5">
         <div class="container px-4 px-lg-5 mt-5">
-
-            <h1>Create session</h1>
-
+            <h3>Requesting session for the coach : </h3>
+                <h1 align="center">{{ $coach->name }}</h1>
             <br>
 
-            <form action="{{ route('sessions.store') }}" method="post">
+            <form action="{{ route('SessionValidation') }}" method="post">
                 @csrf
 
                 Activity :
-                <select name="activityID" class="form-select ">
+                <select name="activityID" class="form-select">
                     @if($activities)
                         @foreach($activities as $activity)
                             <option value="{{ $activity->id }}"
@@ -19,31 +18,11 @@
                         @endforeach
                     @endif
                 </select>
-                @error('activityID')
-                <div class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </div>
-                @enderror
 
                 <br>
-                Coach :
-                <select name="coachID" class="form-select @error('coachID') is-invalid @enderror">
-                    @if($coaches)
-                        @foreach($coaches as $coach)
-                            <option value="{{ $coach->id }}"
-                                    @if($coach->id == old('coachID')) selected @endif>{{ $coach->name }}</option>
-                        @endforeach
-                    @endif
-                </select>
-                @error('coachID')
-                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                @enderror
 
-                <br>
                 Room number :
-                <select name="roomID" class="form-select @error('roomID') is-invalid @enderror">
+                <select name="roomID" class="form-select">
                     @if($rooms)
                         @foreach($rooms as $room)
                             <option value="{{ $room->id }}"
@@ -51,11 +30,6 @@
                         @endforeach
                     @endif
                 </select>
-                @error('roomID')
-                <span class="invalid-feedback" role="alert">
-                                        <strong>{{ $message }}</strong>
-                                    </span>
-                @enderror
 
                 <br>
                 Day :
@@ -69,7 +43,7 @@
                 <div class="col-md-3">
                     Starts at :
                     <input name="startHour" type="number" class="col-md-2 @error('startHour') is-invalid @enderror" value="{{ old('startHour') }}"> H <input name="startMin" type="number"
-                                                                                     class="col-md-2 @error('startMin') is-invalid @enderror" value="{{ old('startMin') }}"> mins
+                                                                                                                                                             class="col-md-2 @error('startMin') is-invalid @enderror" value="{{ old('startMin') }}"> mins
                     @error('startHour')
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -86,7 +60,7 @@
                 <div class="col-md-3">
                     Ends at :
                     <input name="endHour" type="number" class="col-md-2 @error('time') is-invalid @enderror @error('endHour') is-invalid @enderror" value="{{ old('endHour') }}"> H <input name="endMin" type="number"
-                                                                                   class="col-md-2 @error('endMin') is-invalid @enderror" value="{{ old('endMin') }}"> mins
+                                                                                                                                                                                           class="col-md-2 @error('endMin') is-invalid @enderror" value="{{ old('endMin') }}"> mins
                     @error('endHour')
                     <span class="invalid-feedback" role="alert">
                                         <strong>{{ $message }}</strong>
@@ -105,7 +79,7 @@
                 </div>
                 <br>
                 <input type="submit" class="btn btn-primary" value="Create">
-                <a class="btn btn-light" href="{{ route('sessions.index') }}">Cancel</a>
+                <a class="btn btn-light" href="/coach">Cancel</a>
 
             </form>
 

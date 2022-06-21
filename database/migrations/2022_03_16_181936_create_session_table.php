@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('day');
             $table->string('hour');
             $table->string('end');
+            $table->integer('pending');
             $table->unsignedBigInteger('coach_id');
             $table->foreign('coach_id')->references('id')->on('coach')->onDelete('cascade');
             $table->unsignedBigInteger('room_id');

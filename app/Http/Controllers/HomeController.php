@@ -27,7 +27,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        $sessions = Session::all();
+        \session()->forget('coach');
+        $sessions = DB::table('session')->where('pending','=',false)->get();
         $days = Session::$days;
         return view('dashboard',compact('sessions','days'));
     }
