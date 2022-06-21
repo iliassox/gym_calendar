@@ -73,7 +73,6 @@ class CoachRequestController extends Controller
 
             $request->validate([
                 'activityID' => 'required',
-                'coachID' => 'required',
                 'roomID' => 'required',
                 'startHour' => 'required|integer|between:9,19',
                 'startMin' => 'required|integer|between:0,59',
