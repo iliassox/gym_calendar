@@ -79,7 +79,7 @@
                 </div>
                 <br>
                 <input type="submit" class="btn btn-primary" value="Create">
-                <a class="btn btn-light" href="/coach">Cancel</a>
+                <a class="btn btn-light" href="/coach/sessions">Cancel</a>
 
             </form>
 

@@ -1,7 +1,7 @@
 <!DOCTYPE HTML>
 <html>
 <head>
-    <title>0hh Website Template | Home :: W3layouts</title>
+    <title>404</title>
     <meta name="keywords" content="404 iphone web template, Android web template, Smartphone web template, free webdesigns for Nokia, Samsung, LG, Sony Ericsson, Motorola web design" />
     <link href="{{ asset('css/style.css') }}" rel="stylesheet" type="text/css"  media="all" />
 </head>
